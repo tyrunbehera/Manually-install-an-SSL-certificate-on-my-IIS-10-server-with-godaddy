@@ -1,0 +1,48 @@
+Convert your .crt file to a .cer file
+Locate your downloaded .crt file, and double-click to open it.
+Select the Details tab, and then the Copy to File button.
+Select Next in the Certificate Wizard.
+Select Base-64 encoded X.509(.CER) and then select Next.
+Select Browse, locate where you want to save your .CER file, and type in a name for your certificate.
+Select Next and then Finished.
+Copy your certificate files onto the server
+Find the directory on your server where certificate and key files are stored, then upload your intermediate certificate (gd_iis_intermediates.p7b or similar) and primary certificate (.cer file that you just converted) into that folder.
+Add a Certificate Snap-in to the Microsoft Management Console (MMC)
+Click on your Start Menu, then click Run.
+In the prompt, type mmc and click OK.
+Click File, then click Add/Remove Snap-in.
+On the new window, click the Add button.
+On the new window, select Certificates and click Add.
+Select Computer account for the snap-in and click Next.
+Click Local computer and click Finish.
+Click Close on the Add Standalone Snap-in window.
+Click OK on the Add/Remove Snap-in window.
+Import the Intermediate SSL Certificate
+In the MCC Console, click ▸ to expand Certificates (Local Computer).
+Right click on the Intermediate Certification Authorities folder, hover over All Tasks and click Import.
+On the new window, click Next.
+Click Browse, find your gd_iis_intermediates.p7b intermediate certificate file and click Open.
+Click Next, verify that the certificate information is proper and click Finish.
+Close the the import was successful notification.
+Install your SSL certificate
+Click on your Start Menu, then click Run.
+In the prompt, type inetmgr and click OK to launch the Internet Information Services (IIS) Manager.
+Under the Connections panel on the left, click on your Server Name.
+In the main panel under the IIS section, double click on Server Certificates.
+Under the Actions panel on the right, click Complete Certificate Request.
+On the new window, click ... to browse, find your previously uploaded primary certificate file and click Open.
+Add a Friendly name to easily identify this certificate in the future.
+In the certificate store option, select Web Hosting and click OK.
+Bind the SSL certificate
+Under the Connections panel on the left, click ▸ to expand the Sites folder.
+Click the Site Name that you plan to install the SSL certificate onto.
+Under the Actions panel on the right, find the Edit Site section and click Bindings.
+On the new window, click Add and fill out the following information:
+Type: select https.
+IP Address: select All Unassigned.
+Port: type in 443.
+Host name: leave this empty.
+SSL Certificate: select your recently installed SSL.
+Click OK to confirm, then Close for the Site Bindings window.
+Restart IIS
+Under the Actions panel on the right, find the Manage Website section and click Restart.
